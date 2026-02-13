@@ -69,6 +69,26 @@ to be listed:
 
 # Setup Instructions
 
+# 🔁 Rebuilding the TMEP Knowledge Base (Required)
+
+The repository does not include generated data or embeddings. You must rebuild the knowledge base before running the system.
+
+## 1️⃣ Install Dependencies
+- `uv sync`
+
+## 2️⃣ Parse Official TMEP HTML
+- Place the raw TMEP HTML files inside:
+
+  `data/raw/`
+
+- Then run:
+
+```bash
+python main.py
+```
+
+This generates structured TMEP sections.
+
 ## (1) for `parse_tmep_html.py`
 - **Install Required Dependency:**
   ```bash
@@ -157,5 +177,6 @@ python -m src.vectorstore.weaviate_loader
 pip install groq 
 ### (ii) Environment Variables 
 groq_api_key=your_key_here
+
 
 
