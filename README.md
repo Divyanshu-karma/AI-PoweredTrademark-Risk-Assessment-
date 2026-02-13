@@ -63,7 +63,7 @@ to be listed:
 • `tqdm` – Progress tracking during embedding generation.
 • `json` – Data serialization.
 • `pathlib` – File handling.
-• `typing` – Type annotations.</json>}```]]>}}}]}]}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}]}] }}}}]}}] }}
+• `typing` – Type annotations.
 
 
 
@@ -94,3 +94,4 @@ to be listed:
 
 ## Critical E5 Usage Rule
 - `"query: " + query`
+
