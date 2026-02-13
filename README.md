@@ -84,7 +84,7 @@ to be listed:
 - You must already have: `data/parsed/tmep_sections.json`
 - Generated via: `parse_tmep_html.py` → `normalize_sections.py`
 
-# (4) for embed_chunks.py (E5 Query Embedding Layer)
+## (4) for embed_chunks.py (E5 Query Embedding Layer)
 
 ## Install Required Dependencies
 - `pip install sentence-transformers torch`
@@ -94,4 +94,68 @@ to be listed:
 
 ## Critical E5 Usage Rule
 - `"query: " + query`
+
+## (5) Weaviate Client (`weaviate_client.py`) - Vector Database Layer
+
+### (i) Install Required Dependencies
+```bash
+pip install weaviate-client python-dotenv
+```
+
+### (ii) Create `.env` File (Required)
+Add the following lines:
+```
+WEAVIATE_URL=https://lxfxvnwtyq3nxla7imgjw.c0.asia-southeast1.gcp.weaviate.cloud
+WEAVIATE_API_KEY=your_api_key_here
+EMBEDDING_DIM=768
+```
+
+### (iii) Run Schema Creation (One-Time Setup)
+```python
+from src.vectorstore.weaviate_client import get_client, create_schema
+client = get_client()
+create_schema(client)
+client.close()
+```
+Run the following command:
+```bash
+python create_schema.py
+```
+**Output:** ✅ Schema `'TmepChunk'` created.
+
+---
+
+## (6) Weaviate Loader (`weaviate_loader.py`) - Embedding Ingestion Layer
+
+### (i) Install Required Dependencies
+```bash
+pip install weaviate-client python-dotenv sentence-transformers torch
+```
+(Note: `python-dotenv` is already installed.)
+
+### (ii) Ensure Required Files Exist
+data/embeddings/tmep_e5_embeddings.json
+
+### (iii) Run Ingestion
+defaults:
+document version="TMEP Nov 2025"
+def run:
+python -m src.vectorstore.weaviate_loader  
+ 
+---
+## (7) Input Adapter (`input_adapter.py`)
+- No External Dependencies required.
+- Required Input Object Structure:
+  - `app.mark`
+  - `app.mark_type`
+  - `app.register`
+  - `app.filing_basis`
+  - `app.use_in_commerce`
+---
+## (8) Generate Answer (`generate_answer.py`) - LLM Reasoning Layer 
+### (i) Required Dependency 
+pip install groq 
+### (ii) Environment Variables 
+groq_api_key=your_key_here
+
 
